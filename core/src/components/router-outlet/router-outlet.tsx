@@ -45,6 +45,12 @@ export class RouterOutlet implements ComponentInterface, NavOutlet {
   @Prop() delegate?: FrameworkDelegate;
 
   /**
+   * The edge threshold for swiping back to the previous page.
+   * If a drag/swipe happens over this value, the swipe back gesture is not triggered.
+   */
+  @Prop() maxEdgeStart = 50;
+
+  /**
    * If `true`, the router-outlet should animate the transition of components.
    */
   @Prop() animated = true;
@@ -118,7 +124,8 @@ export class RouterOutlet implements ComponentInterface, NavOutlet {
         } else {
           this.gestureOrAnimationInProgress = false;
         }
-      }
+      },
+      this.maxEdgeStart
     );
     this.swipeHandlerChanged();
   }

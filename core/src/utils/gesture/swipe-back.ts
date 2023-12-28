@@ -9,25 +9,25 @@ export const createSwipeBackGesture = (
   canStartHandler: () => boolean,
   onStartHandler: () => void,
   onMoveHandler: (step: number) => void,
-  onEndHandler: (shouldComplete: boolean, step: number, dur: number) => void
+  onEndHandler: (shouldComplete: boolean, step: number, dur: number) => void,
+  maxEdgeStart: number = 50
 ): Gesture => {
   const win = el.ownerDocument!.defaultView!;
   let rtl = isRTL(el);
 
   /**
-   * Determine if a gesture is near the edge
-   * of the screen. If true, then the swipe
+   * Determine if a gesture is within the edge
+   * threshold. If true, then the swipe
    * to go back gesture should proceed.
    */
   const isAtEdge = (detail: GestureDetail) => {
-    const threshold = 50;
     const { startX } = detail;
 
     if (rtl) {
-      return startX >= win.innerWidth - threshold;
+      return startX >= win.innerWidth - maxEdgeStart;
     }
 
-    return startX <= threshold;
+    return startX <= maxEdgeStart;
   };
 
   const getDeltaX = (detail: GestureDetail) => {

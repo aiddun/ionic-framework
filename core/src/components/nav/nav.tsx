@@ -56,6 +56,12 @@ export class Nav implements NavOutlet {
   }
 
   /**
+   * The edge threshold for swiping back to the previous page.
+   * If a drag/swipe happens over this value, the swipe back gesture is not triggered.
+   */
+  @Prop() maxEdgeStart = 50;
+
+  /**
    * If `true`, the nav should animate the transition of components.
    */
   @Prop() animated = true;
@@ -137,7 +143,8 @@ export class Nav implements NavOutlet {
       this.canStart.bind(this),
       this.onStart.bind(this),
       this.onMove.bind(this),
-      this.onEnd.bind(this)
+      this.onEnd.bind(this),
+      this.maxEdgeStart
     );
     this.swipeGestureChanged();
   }
